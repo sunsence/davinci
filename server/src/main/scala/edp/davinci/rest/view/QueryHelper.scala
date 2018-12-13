@@ -289,7 +289,9 @@ object QueryHelper extends Directives {
     val fileName = java.util.UUID.randomUUID().toString + "_widget.csv"
     val file = new File(s"$dir/${DavinciConstants.downloadDir}/$fileName")
     val csvResult = result.mkString
-    printToFile(file) { p => p.write(csvResult) }
+    printToFile(file) { p =>
+      p.write("\uFEFF")
+      p.write(csvResult) }
     file.getName
   }
 
